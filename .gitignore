@@ -5,10 +5,10 @@ node_modules
 client
 
 # Ignore config file
-config.env
+*.env
 
-#Ignore package-lock
+#Ignore package-lock file
 package-lock.json
 
-#Ignore package-lock
+#Ignore dev-data
 dev-data
