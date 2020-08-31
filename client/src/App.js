@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import './App.css';
 import { BrowserRouter, Route} from 'react-router-dom';
-import axios from 'axios';
 
 import Home from './components/Home/Home';
 import User from './components/User/User';
@@ -13,21 +12,8 @@ import WasherSignup from './components/Washer/WasherSignup';
 import WasherForgotPassword from './components/Washer/WasherForgotPassword';
 import Navbar from './components/Navbar/Navbar';
 
-const api = axios.create({
-  baseURL: 'http://localhost:8080'
-})
 class App extends Component {
 
-  constructor() {
-    super();
-    api.post('/api/users/login')
-    .then(res => {
-      console.log(res.data);
-    }).catch(err => {
-      console.log('Errorrrr', err)
-    })
-  }
- 
   render() {
    const styles = {
        
