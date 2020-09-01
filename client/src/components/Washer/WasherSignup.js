@@ -11,7 +11,6 @@ const signUp = (e) => {
         password: document.getElementById('password').value,
         passwordConfirm: document.getElementById('passwordConfirm').value
     }
-    console.log('request', request)
     axios.post('http://localhost:8080/api/washers/signup', request)
     .then(res => {
         console.log('washerSignup', res.data);

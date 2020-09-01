@@ -11,7 +11,6 @@ const filterObj = (obj, ...allowedFields) => {
 }
 
 exports.getAllWashers = catchAsync(async (req, res, next) => {
- 
     const washers = await Washer.find();
     res.status(200).json({
         status: 'success',
@@ -39,7 +38,6 @@ exports.washerUpdate = catchAsync( async (req, res, next) => {
 })
 
 exports.getWasher = catchAsync(async (req, res, next) => {
-   
     const washer = await Washer.findById(req.params.id);
     res.status(200).json({
         status: 'success',
@@ -50,7 +48,6 @@ exports.getWasher = catchAsync(async (req, res, next) => {
 });
 
 exports.createWasher = catchAsync(async (req, res,next) => {
-
     const newWasher = await Washer.create(req.body);
     res.status(201).json({
         status: 'success',
@@ -61,7 +58,6 @@ exports.createWasher = catchAsync(async (req, res,next) => {
 });
 
 exports.updateWasher = catchAsync(async (req, res, next) => {
-   
     const washer = await Washer.findByIdAndUpdate(req.params.id, req.body,{
         new: true, runValidators: true
     })
@@ -74,7 +70,6 @@ exports.updateWasher = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteWasher = catchAsync(async (req, res, next) => {
-   
     await Washer.findByIdAndDelete(req.params.id);
     res.status(204).json({
         status: 'success',

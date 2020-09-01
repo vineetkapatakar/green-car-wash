@@ -112,7 +112,6 @@ exports.forgotPassword = catchAsync( async (req, res, next) => {
             subject: 'Your password reset token (valid for 10 mins)',
             message
         })
-    
         res.status(200).json({
             status: 'success',
             message: 'Token sent to email'
@@ -183,7 +182,6 @@ exports.carwashBooking  = catchAsync( async (req, res, next) => {
             subject: 'Car wash booking confirmation',
             message
         })
-    
         res.status(201).json({
             status: 'success',
             message: 'Email sent'
@@ -259,7 +257,6 @@ exports.washerForgotPassword = catchAsync( async (req, res, next) => {
     if(!washer) {
         return next(new AppError('There is no washer with this email address.', 404));
     }
-    console.log('Washer', washer);
     const resetToken = washer.washerPasswordResetToken();
     await washer.save({validateBeforeSave: false});
 

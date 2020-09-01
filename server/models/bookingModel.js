@@ -7,7 +7,7 @@ const bookingSchema= new mongoose.Schema({
     },
     carNumber: {
         type: String,
-        required: [true, 'Car number is required for booking car wash']
+        required: [true, 'Car number is required']
     },
     carModel: {
         type: String,

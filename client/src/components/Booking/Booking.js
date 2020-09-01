@@ -12,7 +12,6 @@ const booking = (e) => {
         time: document.getElementById('time').value,
         address: document.getElementById('address').value
     }
-    console.log('request', request)
     axios.post('http://localhost:8080/api/bookings/carwashBooking', request)
     .then(res => {
         console.log('Booking Data', res.data);

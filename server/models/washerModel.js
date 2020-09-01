@@ -65,7 +65,6 @@ const washerSchema = new mongoose.Schema({
 
 washerSchema.pre('save', async function(next) {
     if(!this.isModified('password')) return next;
-
     this.password = await bcrypt.hash(this.password, 12);
     this.passwordConfirm = undefined;
     next();
@@ -73,7 +72,6 @@ washerSchema.pre('save', async function(next) {
 
 washerSchema.pre('save', function(next) {
     if(!this.isModified('password') || this.isNew) return next();
-
     this.passwordChangedAt = Date.now() - 1000;
     next();
 })
@@ -92,11 +90,8 @@ washerSchema.methods.passwordChanged = function(JWTTimestamp) {
 
 washerSchema.methods.washerPasswordResetToken = function() {
     const resetToken = crypto.randomBytes(32).toString('hex');
-
     this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-    console.log({resetToken}, this.passwordResetToken);
     this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-
     return resetToken;
 }
 const Washer = mongoose.model('Washer', washerSchema);

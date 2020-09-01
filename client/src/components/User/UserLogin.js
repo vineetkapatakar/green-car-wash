@@ -13,7 +13,6 @@ const logIn = (e) => {
     axios.post('http://localhost:8080/api/users/login', request)
     .then(res => {
         const token = res.data.token;
-        console.log('user', token);
         localStorage.setItem('jwtToken', token);
         if(token) {
           <Redirect push to='http://localhost:3000/api/users/home' />

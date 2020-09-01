@@ -16,6 +16,7 @@ router
 .delete(
     authController.protectWasher, 
     authController.restrictTo('admin', 'manager'), 
-    serviceController.deleteService);
+    serviceController.deleteService
+);
 
 module.exports = router;
