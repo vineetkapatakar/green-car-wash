@@ -9,21 +9,25 @@ const bookingSchema= new mongoose.Schema({
         type: String,
         required: [true, 'Car number is required for booking car wash']
     },
-    carBrand: {
-        type: String,
-        required: [true, 'Car brand is required for booking car wash']
-    },
     carModel: {
         type: String,
-        required: [true, 'Car model is required for booking car wash']
+        required: [true, 'Car model is required']
+    },
+    date: {
+        type: Date,
+        required: [true, 'Date is required']
+    },
+    time: {
+      type: Date,
+      required: [true, 'Time is required']
     },
     address: {
         type: String,
-        required: [true, 'Address is required for booking car wash']
+        required: [true, 'Address is required']
     },
     location: {
         type: [Number],
-        required: [true, 'location is required for booking car wash']
+        required: [true, 'location is required']
     }
 });
 

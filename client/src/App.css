@@ -1,16 +1,13 @@
-.App {
-  background-image: url("/client/public/images/Carwash.jpg");
-  position: fixed;
-  min-width: 100%;
-  min-height: 100%;
-  background-size: cover;
-  background-position: center;
-}
-
 .carwash-form {
   width: 100%;
   max-width: 360px;
   padding: 10px;
   margin: auto;
   height: 100%;
+}
+
+.scroll {
+  overflow: scroll;
+  width: 110px;
+  height: 110px;
 }
