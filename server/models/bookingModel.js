@@ -18,8 +18,8 @@ const bookingSchema= new mongoose.Schema({
         required: [true, 'Date is required']
     },
     time: {
-      type: Date,
-      required: [true, 'Time is required']
+      type: String,
+      required: [true, "Time is required"]
     },
     address: {
         type: String,
@@ -28,7 +28,8 @@ const bookingSchema= new mongoose.Schema({
     location: {
         type: [Number],
         required: [true, 'location is required']
-    }
+    },
+    notes: String
 });
 
 const Booking = mongoose.model('Booking', bookingSchema);

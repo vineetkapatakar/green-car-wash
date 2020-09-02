@@ -15,6 +15,7 @@ import WasherForgotPassword from './components/Washer/WasherForgotPassword';
 import Navbar from './components/Navbar/Navbar';
 import CarWashBooking from './components/Booking/Booking';
 import Payment from './components/Payment/Payment';
+import Receipt from './components/Receipt/Receipt';
 
 class App extends Component {
 
@@ -33,16 +34,17 @@ class App extends Component {
        <div style={styles} className="scroll">
         <Navbar />
         <Route exact path="/" component={Home} />
-        <Route path="/api/users/login" component={UserLogin} />
-        <Route path="/api/users/signup" component={UserSignup} />
-        <Route path="/api/users/home" component={UserHome} />
-        <Route path="/api/users/forgotPassword" component={UserForgotPassword} />
-        <Route path="/api/washers/login" component={WasherLogin} />
-        <Route path="/api/washers/signup" component={WasherSignup} />
-        <Route path="/api/washers/home" component={WasherHome} />
-        <Route path="/api/washers/forgotPassword" component={WasherForgotPassword} />
-        <Route path="/api/bookings/carwashBooking" component={CarWashBooking} />
-        <Route path="/api/bookings/payment" component={Payment} />
+        <Route path="/api/users/login" component={ UserLogin } />
+        <Route path="/api/users/signup" component={ UserSignup } />
+        <Route path="/api/users/home" component={ UserHome } />
+        <Route path="/api/users/forgotPassword" component={ UserForgotPassword } />
+        <Route path="/api/washers/login" component={ WasherLogin } />
+        <Route path="/api/washers/signup" component={ WasherSignup } />
+        <Route path="/api/washers/home" component={ WasherHome } />
+        <Route path="/api/washers/forgotPassword" component={ WasherForgotPassword } />
+        <Route path="/api/bookings/carwashBooking" component={ CarWashBooking } />
+        <Route path="/api/bookings/payment" component={ Payment } />
+        <Route path="/api/receipt/receiptGenerator" component={ Receipt } />
         </div>
       </BrowserRouter>
     );
