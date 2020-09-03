@@ -71,7 +71,7 @@ const CarWashBooking = () => {
                 <Label>Address</Label>
                 <Input type="text" id="address" placeholder="Enter your address" />
             </FormGroup>
-            <Button className="btn-lg btn-dark btn-block">Book Car Wash</Button>
+            <Button color="primary" className="btn-lg btn-block">Book Car Wash</Button>
         </Form>
     );
 }

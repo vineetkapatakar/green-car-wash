@@ -16,12 +16,16 @@ import Navbar from './components/Navbar/Navbar';
 import CarWashBooking from './components/Booking/Booking';
 import Payment from './components/Payment/Payment';
 import Receipt from './components/Receipt/Receipt';
+import UserProfile from './components/User/UserProfile';
+import WasherProfile from './components/Washer/WasherProfile';
+import UserUpdatePassword from './components/User/UserUpdatePassword';
+import WasherUpdatePassword from './components/Washer/WasherUpdatePassword';
 
 class App extends Component {
 
   render() {
    const styles = {
-      backgroundImage: "url('/images/carwash.png')",
+      // backgroundImage: "url('/images/carwash.png')",
       minHeight: "100%",
       minWidth: "100%", 
       position: "fixed",
@@ -45,7 +49,11 @@ class App extends Component {
         <Route path="/api/bookings/carwashBooking" component={ CarWashBooking } />
         <Route path="/api/bookings/payment" component={ Payment } />
         <Route path="/api/receipt/receiptGenerator" component={ Receipt } />
-        </div>
+        <Route path="/api/users/userProfile" component={ UserProfile } />
+        <Route path="/api/washers/washerProfile" component={ WasherProfile } />
+        <Route path="/api/users/updateMyPassword" component={ UserUpdatePassword } />
+        <Route path="/api/washers/updateWasherPassword" component={ WasherUpdatePassword } />
+      </div>
       </BrowserRouter>
     );
   }

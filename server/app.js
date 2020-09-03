@@ -5,6 +5,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler =  require('./controllers/errorController')
@@ -14,6 +15,7 @@ const washerRouter = require('./routes/washersRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes//bookingRoutes');
 const paymentRouter = require('./routes/paymentRoutes');
+const receiptRouter = require('./routes/receiptRoutes');
 
 const app = express();
 
@@ -32,6 +34,7 @@ app.use('/api', limiter);
 
 // Body pasrser, reading data from req.body
 app.use(express.json());
+app.use(cookieParser());
 
 // Data sanitization against NoSQL query injection
 app.use(mongoSanitize());
@@ -48,6 +51,7 @@ app.use('/api/washers', washerRouter);
 app.use('/api/reviews', reviewRouter);
 app.use('/api/bookings', bookingRouter);
 app.use('/api/payment', paymentRouter);
+app.use('/api/receipts', receiptRouter)
 
 app.all('*', (req, res, next) => {
     next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

@@ -42,7 +42,7 @@ const UserSignup = () => {
                 <Label>Confirm Password</Label>
                 <Input type="password" id="passwordConfirm" placeholder="Please confirm your password" />
             </FormGroup>
-            <Button className="btn-lg btn-dark btn-block">Sign Up</Button>
+            <Button className="btn-lg btn-block">Sign Up</Button>
         </Form>
     );
 }

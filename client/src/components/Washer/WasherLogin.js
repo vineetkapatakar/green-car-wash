@@ -12,7 +12,11 @@ const logIn = (e) => {
     
     axios.post('http://localhost:8080/api/washers/login', request)
     .then(res => {
-        console.log('washer', res.data);
+        const token = res.data.token;
+        const status = res.data.status;
+        if(token && status === 'success') {
+            window.location = '/api/washers/home';
+        }
     }).catch(err => {
         console.log('err', err)
     })

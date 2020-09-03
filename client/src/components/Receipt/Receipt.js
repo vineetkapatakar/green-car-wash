@@ -14,7 +14,7 @@ const generate = (e) => {
         date: document.getElementById('date').value,
         image: document.getElementById('image').value
     }
-    axios.post('http://localhost:8080/api/receipt/receiptGenerator', request)
+    axios.post('http://localhost:8080/api/receipts/receiptGenerator', request)
     .then(res => {
         console.log('receipt', res.data);
     }).catch(err => {

@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/userModel');
 const Washer = require('./../models/washerModel');
 const Booking = require('./../models/bookingModel');
+const Receipt = require('./../models/receiptModel');
 const catchAsync = require('./../utils/catchAsync');
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
@@ -62,12 +63,24 @@ exports.logIn = catchAsync(async (req, res, next) => {
     createSendToken(user, 200, res);
 });
 
+exports.logOut = (req, res) => {
+    res.cookie('jwt', 'loggedOut', {
+        expires: new Date(Date.now() + 5 * 1000),
+        httpOnly: true
+    })
+    res.status(200).json({
+        status: 'success'
+    })
+}
 exports.protect = catchAsync(async (req, res, next) => {
     // 1) Getting token and check if it exists
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
+    } else if(req.cookies.jwt) {
+        token = req.cookies.jwt;
     }
+    
     if(!token) {
         return next(new AppError('You are not logged in! Please login to get access..', 401))
     }
@@ -89,6 +102,29 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.user = currentUser;
     next();
 })
+
+exports.isLoggedIn = catchAsync(async (req, res, next) => {
+    // 1) Verifies jwt token 
+    if(req.cookies.jwt) {
+    const decoded = await promisify(jwt.verify)(req.cookies.jwt, process.env.JWT_SECRET);
+
+    // 2) Check if user still exists
+    const currentUser = await User.findById(decoded.id);
+    if(!currentUser) {
+        return next()
+    }
+
+    // 3)Check if user changed password after the token was issued
+    if(currentUser.changedPasswordAfter(decoded.iat)) {
+        return next();
+    }
+    // There is a logged in user
+    res.locals.user = currentUser;
+    return next();
+  }
+  next();
+})
+
 
 exports.forgotPassword = catchAsync( async (req, res, next) => {
     const user = await User.findOne({email: req.body.email});
@@ -167,15 +203,18 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 });
 
 exports.carwashBooking  = catchAsync( async (req, res, next) => {
-    const message = `Hi ${req.user.name}, Your Car wash booking is confirmed. -Green Car Wash`
+    const user = req.user; 
+    const message = `Hi ${user.name}, Your Car wash booking is confirmed. -Green Car Wash`
     try{
         const newBooking = await Booking.create({
             serviceName:  req.body.serviceName,
             carNumber: req.body.carNumber,
-            carBrand: req.body.carBrand,
             carModel: req.body.carModel,
+            date: req.body.date,
+            time: req.body.time,
             address: req.body.address,
-            location: req.body.location
+            location: req.body.location,
+            notes: req.body.notes
         })
         await sendEmail({
             email: req.user.email,
@@ -189,6 +228,8 @@ exports.carwashBooking  = catchAsync( async (req, res, next) => {
     } catch(err) {
         return next(new AppError('There was an error while sending the email. Try again later.', 500))
     }
+    req.user = user;
+    next();
 });
 
 exports.washerSignup = catchAsync( async (req, res, next) => {
@@ -317,4 +358,27 @@ exports.updateWasherPassword = catchAsync( async (req, res, next) => {
     await washer.save();
 
     createSendToken(washer, 200, res);
+})
+
+exports.generateReceipt = catchAsync( async (req, res, next) => {
+    const user = req.user;
+    console.log('user',user);
+
+    const receipt = await Receipt.create({
+        receiptNum: req.body.receiptNum,
+        services: req.body.services,
+        washerId: req.body.washerId,
+        amount: req.body.amount,
+        userName: req.body.userName,
+        contactNumber: req.body.contactNumber,
+        date: req.body.date,
+        image: req.body.image
+    });
+
+    res.status(201).json({
+        status: 'success',
+        data: {
+            receipt
+        }
+    })
 })
