@@ -9,3 +9,5 @@ package-lock.json
 
 #Ignore dev-data
 dev-data
+
+.serverless

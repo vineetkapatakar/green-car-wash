@@ -18,7 +18,7 @@ const logIn = (e) => {
             window.location = '/api/washers/home';
         }
     }).catch(err => {
-        console.log('err', err)
+        alert(err.response.data.message)
     })
 };
 
